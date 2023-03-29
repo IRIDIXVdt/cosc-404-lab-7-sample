@@ -7,6 +7,19 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
+export interface order {
+  num: number,
+  item: number,
+  total: number,
+}
+
+export interface dataItem {
+  id: number,
+  name: string,
+  state: string,
+  orders: order[],
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +33,10 @@ export class WebRequestService {
   }
 
   get(uri: string) {
-    return this.http.get(`${this.ROOT_URL}/${uri}`);
+    return this.http.get<dataItem>(`${this.ROOT_URL}/${uri}`);
+  }
+
+  getItem() {
+    return this.http.get<dataItem>(`${this.ROOT_URL}/data`);
   }
 }
