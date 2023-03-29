@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-import { WebRequestService } from './web-request.service';
-
+import { TestBed, getTestBed } from '@angular/core/testing';
+import { WebRequestService, dataItem, order } from './web-request.service';
 // Http imports
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -14,16 +13,16 @@ const testUrl = '/data';
 
 describe('WebRequestService', () => {
   let service: WebRequestService;
-
+  let injector: TestBed;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [WebRequestService]
     });
-
     // Inject the http service and test controller for each test
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -34,6 +33,32 @@ describe('WebRequestService', () => {
     httpTestingController.verify();
   });
 
+  // API get Test
+  it('can get example query()', () => {
+    const expectedResult = {
+      "_id": "642479e425902ed46c3ea475",
+      "id": 1,
+      "name": "Joe Jackson",
+      "state": "BC",
+      "orders": [
+        {
+          "num": 100,
+          "items": 5,
+          "total": 125.35
+        }
+      ]
+    }
+    service.get('data').subscribe(v => {
+      expect(v.id).toBe(1);
+      expect(v.name).toEqual("Joe Jackson");
+      expect(v.orders.length).toEqual(1);
+      expect(v.orders[0].total).toEqual(125.35);
+    });
+    const req = httpTestingController.expectOne(`${service.ROOT_URL}/data`);
+    expect(req.request.method).toBe("GET");
+    req.flush(expectedResult);
+
+  });
 
   /// General HTTP Tests begin ///
   it('can test HttpClient.get', () => {
