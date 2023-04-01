@@ -1,0 +1,23 @@
+{
+  "name": "cosc-404-lab-7-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IRIDIXVdt/cosc-404-lab-7-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IRIDIXVdt/cosc-404-lab-7-sample/issues"
+  },
+  "homepage": "https://github.com/IRIDIXVdt/cosc-404-lab-7-sample#readme",
+  "dependencies": {
+    "jasmine": "^4.6.0"
+  }
+}
