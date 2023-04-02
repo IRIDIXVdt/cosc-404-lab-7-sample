@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/IRIDIXVdt/cosc-404-lab-7-sample#readme",
   "dependencies": {
-    "jasmine": "^4.6.0"
+    "jasmine": "^4.6.0",
+    "mongodb": "^5.1.0"
   }
 }
