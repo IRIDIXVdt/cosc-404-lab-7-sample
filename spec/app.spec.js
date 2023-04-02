@@ -7,7 +7,7 @@ describe("MongoDB Testing", () => {
     beforeAll(async () => {
         con = await init();
     });
-    
+
     afterAll(async () => {
         await con.close();
     });
@@ -33,5 +33,24 @@ describe("MongoDB Testing", () => {
             expect(cursor.property).toEqual(expectedResult.property);
         }
     });
-   
+
+    it("example query: multiple documents", async () => {
+        const expectedResult = [
+            { "name": 'Sam Smith', "state": 'ON' },
+            { "name": 'Rory Ruthers', "state": 'SK' },
+            { "name": 'Patty Park', "state": 'AB' },
+            { "name": 'Nelly Noris', "state": 'BC' },
+            { "name": 'Mallory May', "state": 'ON' },
+            { "name": 'Larry Lawrence', "state": 'MB' },
+            { "name": 'Kyla Kurter', "state": 'ON' },
+            { "name": 'Ingrid Irene', "state": 'BC' },
+            { "name": 'Frank Funk', "state": 'AB' },
+            { "name": 'Joe Jackson', "state": 'BC' },
+        ];
+        const cursor = await sample_query2(con);
+        // convert the result into an array
+        const result = await cursor.toArray();
+        expect(result).toEqual(expectedResult);
+    });
+
 });

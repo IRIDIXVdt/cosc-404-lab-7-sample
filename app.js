@@ -44,11 +44,27 @@ async function sample_query1(con) {
     return cursor;
 }
 
+async function sample_query2(con) {
+    // select name, state from data 
+    // **find multiple documents
+    // https://www.mongodb.com/docs/drivers/node/current/usage-examples/find/
+    const db = con.db();
+    const query = {};
+    const options = {
+        // sort returned documents in *descending* order by id
+        sort: { id: -1 },
+        // Include only the `title` and `imdb` fields in each returned document
+        projection: { _id: 0, name: 1, state: 1 },
+    };
+    const cursor = await db.collection(COLLECTION_NAME).find(query, options);
+    return cursor;
+}
+
 module.exports = {
     COLLECTION_NAME,
     init,
     sample_query1,
     sample_query2,
     // import tasks here
-    taks_query_1,
+    // taks_query_1,
 };
