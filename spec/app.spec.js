@@ -1,4 +1,10 @@
-var { COLLECTION_NAME, init, sample_query1, sample_query2 } = require("../app");
+var {
+    COLLECTION_NAME,
+    init,
+    sample_query1,
+    sample_query2,
+    sample_query3
+} = require("../app");
 const { MongoClient } = require("mongodb");
 
 describe("MongoDB Testing", () => {
@@ -51,6 +57,22 @@ describe("MongoDB Testing", () => {
         // convert the result into an array
         const result = await cursor.toArray();
         expect(result).toEqual(expectedResult);
+    });
+
+    it("example query: aggregation pipeline", async () => {
+        const expectedResult = [
+            { id: 10, name: 'Sam Smith' },
+            { id: 4, name: 'Kyla Kurter' },
+            { id: 6, name: 'Mallory May' },
+            { id: 7, name: 'Nelly Noris' },
+            { id: 3, name: 'Ingrid Irene' },
+            { id: 1, name: 'Joe Jackson' }
+        ];
+        const aggCursor = await sample_query3(con);
+        const a = await aggCursor.toArray();
+        //sample display method of cursor
+        a.forEach(element => { console.debug(element); });
+        expect(a).toEqual(expectedResult);
     });
 
 });

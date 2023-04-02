@@ -36,7 +36,7 @@ const init = async function () {
 }
 
 async function sample_query1(con) {
-    //Select * from data limit 1
+    // select * from data limit 1
     // **find single document
     // https://www.mongodb.com/docs/drivers/node/current/usage-examples/findOne/
     const db = con.db();
@@ -45,7 +45,7 @@ async function sample_query1(con) {
 }
 
 async function sample_query2(con) {
-    // select name, state from data 
+    // select name, state from data sort by id desc
     // **find multiple documents
     // https://www.mongodb.com/docs/drivers/node/current/usage-examples/find/
     const db = con.db();
@@ -60,11 +60,46 @@ async function sample_query2(con) {
     return cursor;
 }
 
+async function sample_query3(con) {
+    // select id, name from data 
+    // where state = 'BC' or 'ON'
+    // sort by state desc, (sum of total of orders) asc
+
+    // aggregation stages
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation-pipeline/
+
+    // aggregation operators
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/
+
+    // other resources
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/sum/
+    // https://www.mongodb.com/docs/drivers/node/current/fundamentals/aggregation/
+    const db = con.db();
+    const pipeline = [
+        { //invoke sum method to calculate total values
+            $addFields: { totalV: { $sum: "$orders.total" } }
+        },
+        { //sort before projection and after addFields
+            $sort: { state: -1, totalV: 1 }
+        },
+        { //selection
+            $match: { $or: [{ state: "BC" }, { state: "ON" }] }
+        },
+        { //explicitly set _id to 0
+            $project: { _id: 0, id: 1, name: 1, }
+        }
+    ];
+    const aggCursor = await db.collection(COLLECTION_NAME).aggregate(pipeline);
+    return aggCursor;
+}
+
+
+
 module.exports = {
     COLLECTION_NAME,
     init,
     sample_query1,
     sample_query2,
-    // import tasks here
-    // taks_query_1,
+    sample_query3,
+    // import tasks here and require them in app.spec.js
 };
