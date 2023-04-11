@@ -12,6 +12,7 @@ services:
     - MONGO_INITDB_ROOT_PASSWORD=404mgbpw
   # node api
   api:
+    container_name: cosc404-lab07-api
     build: .
     ports:
     - 3000:3000
