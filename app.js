@@ -3,7 +3,10 @@ const { MongoClient } = require('mongodb');
 
 const DATABASE_NAME = "lab7";
 const COLLECTION_NAME = "data";
+// const url = "mongodb://lab7:404mgbpw@localhost:27017";
+//to utilize docker network
 const url = "mongodb://lab7:404mgbpw@localhost:27017";
+// mongodb
 
 const INPUT_DATA = [
     { "id": 1, "name": "Joe Jackson", "state": "BC", "orders": [{ "num": 100, "items": 5, "total": 125.35 }] }
