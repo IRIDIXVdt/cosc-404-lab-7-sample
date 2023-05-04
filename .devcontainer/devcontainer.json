@@ -1,0 +1,33 @@
+{
+    "name": "cosc404-lab07",
+    // "overrideCommand": false,
+    // "dockerComposeFile": "docker-compose.yml",
+    // "service": "api",
+    // "workspaceFolder": "/",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {
+            "VARIANT": "14"
+        },
+    },
+    // Set *default* container specific settings.json values on container create.
+    // "settings": {},
+    // Add the IDs of extensions you want installed when the container is created.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "hbenl.vscode-jasmine-test-adapter",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "uname -a",
+    // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+    // "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+    // Uncomment when using mapped or named volumes
+    // "mounts": ["source=.", "target=/app", "type=bind"]
+}
