@@ -44,6 +44,7 @@ async function sample_query1(con) {
     // https://www.mongodb.com/docs/drivers/node/current/usage-examples/findOne/
     const db = con.db();
     const cursor = await db.collection(COLLECTION_NAME).findOne();
+    // cursor = null;
     return cursor;
 }
 
